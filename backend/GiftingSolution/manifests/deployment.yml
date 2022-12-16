@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gifting-api
+  namespace: gifting
+spec:
+  selector:
+    matchLabels:
+      app: gifting-api
+  template:
+    metadata:
+      labels:
+        app: gifting-api
+    spec:
+      
+      containers:
+      - name: gifting-api
+        image: jeffrygonzalez/gifting-api:v0.1
+        env:
+          - name: ConnectionStrings__gifts
+            value: somerealconnectionstring
+          - name: developer-api
+            value: "http://oncall-developer-api-service"
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        
+        ports:
+        - containerPort: 80
